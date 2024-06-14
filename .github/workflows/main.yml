@@ -12,7 +12,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
-      SCYLLA_VERSION: 4.2.0
+      SCYLLA_VERSION: 6.0.0
       GOBIN: ./bin
     steps:
       - name: Git Checkout
@@ -42,9 +42,11 @@ jobs:
 #         uses: golangci/golangci-lint-action@v3
 #         with:
 #           version: v1.45.2
-          
+
+      - run: go vet ./...
+
       - name: Run Scylla Container
         run: make run-scylla
-      
+
       - name: Test
         run: make test
